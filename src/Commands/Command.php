@@ -36,7 +36,7 @@ abstract class Command extends BaseCommand
      * @param  Schedule  $schedule
      * @return void
      */
-    public function schedule(Schedule $schedule): void
+    public function schedule(Schedule $schedule)
     {
     }
 
