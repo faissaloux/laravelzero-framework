@@ -25,17 +25,13 @@ abstract class AbstractInstaller extends Command implements InstallerContract
 {
     /**
      * Holds an instance of Files.
-     *
-     * @var \Illuminate\Filesystem\Filesystem
      */
-    protected $files;
+    protected Filesystem $files;
 
     /**
      * Holds an instance of composer.
-     *
-     * @var \LaravelZero\Framework\Contracts\Providers\ComposerContract
      */
-    protected $composer;
+    protected ComposerContract $composer;
 
     /**
      * AbstractInstaller constructor.
@@ -57,17 +53,10 @@ abstract class AbstractInstaller extends Command implements InstallerContract
         $this->install();
     }
 
-    /**
-     * Requires the provided package.
-     *
-     * @param  string  $package
-     * @param  bool  $dev
-     * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
-     */
     protected function require(string $package, bool $dev = false): InstallerContract
     {
         $this->task(
-            'Require package via composer',
+            'Require package via Composer',
             function () use ($package, $dev) {
                 return $this->composer->require($package, $dev);
             }
@@ -76,17 +65,10 @@ abstract class AbstractInstaller extends Command implements InstallerContract
         return $this;
     }
 
-    /**
-     * Removes the provided package.
-     *
-     * @param  string  $package
-     * @param  bool  $dev
-     * @return \LaravelZero\Framework\Contracts\Commands\Component\InstallerContract
-     */
     protected function remove(string $package, bool $dev = false): InstallerContract
     {
         $this->task(
-            'Remove package via composer',
+            'Remove package via Composer',
             function () use ($package, $dev) {
                 return $this->composer->remove($package, $dev);
             }
