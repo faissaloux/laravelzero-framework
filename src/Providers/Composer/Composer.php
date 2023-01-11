@@ -27,22 +27,8 @@ use Throwable;
  */
 final class Composer implements ComposerContract
 {
-    /**
-     * Holds an instance of the app.
-     *
-     * @var \Illuminate\Contracts\Foundation\Application
-     */
-    private $app;
-
-    /**
-     * Composer constructor.
-     *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
-     * @return void
-     */
-    public function __construct(Application $app)
+    public function __construct(private readonly Application $app)
     {
-        $this->app = $app;
     }
 
     /**
@@ -70,7 +56,7 @@ final class Composer implements ComposerContract
      */
     public function createProject(string $skeleton, string $projectName, array $options): bool
     {
-        $cmd = collect("composer create-project $skeleton $projectName")
+        $cmd = collect(["composer create-project {$skeleton} {$projectName}"])
             ->merge($options)
             ->implode(' ');
 

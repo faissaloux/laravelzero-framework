@@ -16,6 +16,7 @@ namespace LaravelZero\Framework\Commands;
 use function func_get_args;
 use Illuminate\Console\Command as BaseCommand;
 use Illuminate\Console\Scheduling\Schedule;
+use LaravelZero\Framework\Application;
 use LaravelZero\Framework\Providers\CommandRecorder\CommandRecorderRepository;
 use function str_repeat;
 use function strlen;
@@ -25,22 +26,22 @@ abstract class Command extends BaseCommand
     /**
      * Holds an instance of the app, if any.
      *
-     * @var \LaravelZero\Framework\Application
+     * @var Application
      */
     protected $app;
 
     /**
      * Define the command's schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param  Schedule  $schedule
      * @return void
      */
-    public function schedule(Schedule $schedule)
+    public function schedule(Schedule $schedule): void
     {
     }
 
     /**
-     * {@inheritdoc}
+     * @param  Application  $laravel
      */
     public function setLaravel($laravel): void
     {
@@ -76,7 +77,7 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function call($command, array $arguments = [])
+    public function call($command, array $arguments = []): int
     {
         resolve(CommandRecorderRepository::class)->create($command, $arguments);
 
@@ -86,7 +87,7 @@ abstract class Command extends BaseCommand
     /**
      * {@inheritdoc}
      */
-    public function callSilent($command, array $arguments = [])
+    public function callSilent($command, array $arguments = []): int
     {
         resolve(CommandRecorderRepository::class)->create($command, $arguments, CommandRecorderRepository::MODE_SILENT);
 
